@@ -1,0 +1,124 @@
+@import "tailwindcss";
+
+:root {
+  /* JARAM Colors */
+  --jaram-red: #e50113;
+  --jaram-red-light: #ff4757;
+  --jaram-red-dark: #c0392b;
+  
+  /* Primary */
+  --primary: #e50113;
+  --primary-foreground: #ffffff;
+  
+  /* Background */
+  --background: #ffffff;
+  --foreground: #0f172a;
+  
+  /* Secondary */
+  --secondary: #f1f5f9;
+  --secondary-foreground: #475569;
+  
+  /* Muted */
+  --muted: #f8fafc;
+  --muted-foreground: #64748b;
+  
+  /* Accent */
+  --accent: #e2e8f0;
+  --accent-foreground: #1e293b;
+  
+  /* Border */
+  --border: #e2e8f0;
+  --input: #e2e8f0;
+  
+  /* Card */
+  --card: #ffffff;
+  --card-foreground: #0f172a;
+  
+  /* Popover */
+  --popover: #ffffff;
+  --popover-foreground: #0f172a;
+  
+  /* Radius */
+  --radius: 0.5rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Primary */
+    --primary: #ff6b7a;
+    --primary-foreground: #0f172a;
+    
+    /* Background */
+    --background: #0f172a;
+    --foreground: #f8fafc;
+    
+    /* Secondary */
+    --secondary: #1e293b;
+    --secondary-foreground: #cbd5e1;
+    
+    /* Muted */
+    --muted: #1e293b;
+    --muted-foreground: #94a3b8;
+    
+    /* Accent */
+    --accent: #334155;
+    --accent-foreground: #f8fafc;
+    
+    /* Border */
+    --border: #334155;
+    --input: #334155;
+    
+    /* Card */
+    --card: #1e293b;
+    --card-foreground: #f8fafc;
+    
+    /* Popover */
+    --popover: #1e293b;
+    --popover-foreground: #f8fafc;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+/* Utility classes */
+.container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .container {
+    max-width: 640px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1280px;
+  }
+}
+
+@media (min-width: 1536px) {
+  .container {
+    max-width: 1536px;
+  }
+}
