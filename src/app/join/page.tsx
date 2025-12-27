@@ -62,19 +62,19 @@ export default function JoinPage() {
       step: 1,
       title: "지원서 작성",
       description: deadline,
-      icon: ICONS.document
+      icon: ICONS.document({})
     },
     {
       step: 2,
       title: "학회비 납부",
       description: "지원서 폼 내에 자세한 안내 포함",
-      icon: ICONS.money
+      icon: ICONS.money({})
     },
     {
       step: 3,
       title: "학회 활동 시작",
       description: "JARAM의 새로운 멤버로 활동 시작",
-      icon: ICONS.checkmark
+      icon: ICONS.checkmark({})
     }
   ];
 
