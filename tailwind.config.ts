@@ -14,8 +14,8 @@ export default {
           100: '#fee2e2',
           200: '#fecaca',
           300: '#fca5a5',
-          400: '#f87171',
-          500: '#e50113', // Main JARAM color
+          400: '#e50113', // Main JARAM color - 변경
+          500: '#c0392b', // Darker shade for hover
           600: '#dc2626',
           700: '#b91c1c',
           800: '#991b1b',

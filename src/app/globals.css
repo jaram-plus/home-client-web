@@ -1,5 +1,18 @@
 @import "tailwindcss";
 
+@theme {
+  --color-jaram-400: #e50113;
+  --color-jaram-500: #c0392b;
+  --color-jaram-50: #fef2f2;
+  --color-jaram-100: #fee2e2;
+  --color-jaram-200: #fecaca;
+  --color-jaram-300: #fca5a5;
+  --color-jaram-600: #dc2626;
+  --color-jaram-700: #b91c1c;
+  --color-jaram-800: #991b1b;
+  --color-jaram-900: #7f1d1d;
+}
+
 :root {
   /* JARAM Colors */
   --jaram-red: #e50113;

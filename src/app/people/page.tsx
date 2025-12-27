@@ -2,9 +2,11 @@
 
 import { useState } from 'react';
 import Layout from '@/components/layout/Layout';
+import PageHero from '@/components/common/PageHero';
+import Button from '@/components/common/Button';
+import MemberCard from '@/components/common/MemberCard';
 import peopleData from '@/data/peopleData.json';
 import tagsData from '@/data/tags.json';
-import MemberCard from '@/components/common/MemberCard';
 
 export default function PeoplePage() {
   const [selectedStatus, setSelectedStatus] = useState('전체');
@@ -67,18 +69,12 @@ export default function PeoplePage() {
 
   return (
     <Layout>
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white py-20">
-        <div className="absolute inset-0 bg-black/20"></div>
-        <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
-            자람의 <span style={{ color: '#e50113' }}>인재들</span>
-          </h1>
-          <p className="text-xl sm:text-2xl text-gray-300 max-w-3xl mx-auto">
-            다양한 분야에서 활약하는 JARAM 멤버들을 만나보세요
-          </p>
-        </div>
-      </section>
+      {/* Hero Section - Reusable Component */}
+      <PageHero
+        title="자람의"
+        highlight="인재들"
+        description="다양한 분야에서 활약하는 JARAM 멤버들을 만나보세요"
+      />
 
       {/* Filter Section */}
       <section className="py-12 bg-gray-50 border-b">
@@ -93,12 +89,9 @@ export default function PeoplePage() {
                   onClick={() => setSelectedStatus(status)}
                   className={`px-4 py-2 rounded-full font-medium transition-colors duration-200 ${
                     selectedStatus === status
-                      ? 'text-white'
+                      ? 'text-white bg-jaram-400'
                       : 'bg-white text-gray-700 hover:bg-gray-100'
                   }`}
-                  style={{
-                    backgroundColor: selectedStatus === status ? '#e50113' : undefined
-                  }}
                 >
                   {status}
                 </button>
@@ -117,18 +110,15 @@ export default function PeoplePage() {
               )}
             </h3>
             <div className="flex flex-wrap gap-2">
-              {tagsData.techTags.sort().map((tech) => (
+              {Array.from(new Set(tagsData.techTags)).sort().map((tech) => (
                 <button
                   key={tech}
                   onClick={() => toggleTechTag(tech)}
                   className={`px-3 py-1 text-sm rounded-full font-medium transition-colors duration-200 ${
                     selectedTech.includes(tech)
-                      ? 'text-white'
+                      ? 'text-white bg-jaram-400'
                       : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
                   }`}
-                  style={{
-                    backgroundColor: selectedTech.includes(tech) ? '#e50113' : undefined
-                  }}
                 >
                   {tech}
                 </button>
@@ -176,16 +166,15 @@ export default function PeoplePage() {
               <p className="text-gray-600 mb-4">
                 다른 필터 조건을 선택해보세요
               </p>
-              <button
+              <Button
                 onClick={() => {
                   setSelectedStatus('전체');
                   setSelectedTech([]);
                 }}
-                className="px-4 py-2 text-white rounded-lg transition-colors duration-200"
-                style={{ backgroundColor: '#e50113' }}
+                size="sm"
               >
                 전체 보기
-              </button>
+              </Button>
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
@@ -206,18 +195,12 @@ export default function PeoplePage() {
           <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
             다양한 분야의 동료들과 함께 성장할 기회가 기다리고 있습니다
           </p>
-          <a
-            href="/join"
-            className="inline-flex items-center px-8 py-4 text-white font-semibold rounded-lg transition-colors duration-300 shadow-lg hover:shadow-xl"
-            style={{ backgroundColor: '#e50113' }}
-            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#c0392b')}
-            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#e50113')}
-          >
+          <Button href="/join" size="lg">
             지원하기
             <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
-          </a>
+          </Button>
         </div>
       </section>
     </Layout>

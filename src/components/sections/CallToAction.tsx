@@ -1,13 +1,13 @@
 'use client';
 
 import Link from 'next/link';
+import Button from '@/components/common/Button';
 
 const CallToAction = () => {
   return (
-    <section 
-      className="py-20" 
+    <section
+      className="py-20 bg-gradient-to-r from-jaram-400 to-[#c0392b]"
       style={{
-        background: 'linear-gradient(to right, #e50113, #c0392b)',
         minHeight: '400px'
       }}
     >
@@ -51,33 +51,14 @@ const CallToAction = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Link
               href="/join"
-              className="px-8 py-4 rounded-lg text-lg font-bold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
-              style={{
-                backgroundColor: 'white',
-                color: '#e50113'
-              }}
-              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#f5f5f5')}
-              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'white')}
+              className="px-8 py-4 rounded-lg text-lg font-bold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl bg-white text-jaram-400 hover:bg-gray-50"
             >
               41기 지원하기
             </Link>
-            
+
             <Link
               href="/people"
-              className="px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-300"
-              style={{
-                border: '2px solid white',
-                color: 'white',
-                backgroundColor: 'transparent'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = 'white';
-                e.currentTarget.style.color = '#e50113';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = 'transparent';
-                e.currentTarget.style.color = 'white';
-              }}
+              className="px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-300 border-2 border-white text-white hover:bg-white hover:text-jaram-400 bg-transparent"
             >
               선배들 만나보기
             </Link>

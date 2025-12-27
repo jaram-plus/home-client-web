@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
+import Button from '@/components/common/Button';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -45,24 +46,10 @@ const Header = () => {
                     key={item.name}
                     href={item.href}
                     className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 relative ${
-                      isActive 
-                        ? 'text-white' 
-                        : 'text-gray-600'
+                      isActive
+                        ? 'text-white bg-jaram-400'
+                        : 'text-gray-600 hover:text-jaram-400'
                     }`}
-                    style={{
-                      backgroundColor: isActive ? '#e50113' : 'transparent',
-                      color: isActive ? 'white' : '#6b7280'
-                    }}
-                    onMouseEnter={(e) => {
-                      if (!isActive) {
-                        e.currentTarget.style.color = '#e50113';
-                      }
-                    }}
-                    onMouseLeave={(e) => {
-                      if (!isActive) {
-                        e.currentTarget.style.color = '#6b7280';
-                      }
-                    }}
                   >
                     {item.name}
                   </Link>
@@ -71,24 +58,11 @@ const Header = () => {
             </div>
           </div>
 
-          {/* CTA Button */}
+          {/* CTA Button - Button Component */}
           <div className="hidden md:block">
-            <Link
-              href="/join"
-              className="px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200"
-              style={{ 
-                backgroundColor: '#e50113', 
-                color: 'white' 
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = '#c0392b';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = '#e50113';
-              }}
-            >
+            <Button href="/join" size="sm">
               지원하기
-            </Link>
+            </Button>
           </div>
 
           {/* Mobile menu button */}
@@ -129,41 +103,23 @@ const Header = () => {
                     key={item.name}
                     href={item.href}
                     className={`block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${
-                      isActive 
-                        ? 'text-white' 
-                        : 'text-gray-600'
+                      isActive
+                        ? 'text-white bg-jaram-400'
+                        : 'text-gray-600 hover:text-jaram-400'
                     }`}
-                    style={{ 
-                      backgroundColor: isActive ? '#e50113' : 'transparent',
-                      color: isActive ? 'white' : '#6b7280' 
-                    }}
-                    onMouseEnter={(e) => {
-                      if (!isActive) {
-                        e.currentTarget.style.color = '#e50113';
-                      }
-                    }}
-                    onMouseLeave={(e) => {
-                      if (!isActive) {
-                        e.currentTarget.style.color = '#6b7280';
-                      }
-                    }}
                     onClick={() => setIsMenuOpen(false)}
                   >
                     {item.name}
                   </Link>
                 );
               })}
-              <Link
+              <Button
                 href="/join"
-                className="block px-3 py-2 rounded-md text-base font-medium mt-4"
-                style={{ 
-                  backgroundColor: '#e50113', 
-                  color: 'white' 
-                }}
+                className="block px-3 py-2 rounded-md text-base font-medium mt-4 w-full text-center"
                 onClick={() => setIsMenuOpen(false)}
               >
                 지원하기
-              </Link>
+              </Button>
             </div>
           </div>
         )}
