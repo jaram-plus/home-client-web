@@ -111,10 +111,10 @@ const Footer = () => {
         <div className="mt-8 pt-8 border-t border-gray-200">
           <div className="text-center text-gray-500 text-sm space-y-1">
             <p>
-              © {currentYear} JARAM - 한양대학교 컴퓨터학회. All rights reserved.
+              © {currentYear} JARAM - 한양대학교 소프트웨어융합대학 학회. All rights reserved.
             </p>
             <p className="text-xs text-gray-400">
-              Developed by 오다연(39기) • dayeon.dev@gmail.com
+              Developed by JaramPlus • <a href="https://github.com/jaram-plus" target="_blank" rel="noopener noreferrer">github.com/jaram-plus</a>
             </p>
           </div>
         </div>
