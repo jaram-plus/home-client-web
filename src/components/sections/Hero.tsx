@@ -7,8 +7,8 @@ import { useEffect, useState, useRef } from 'react';
 const Hero = () => {
   const [displayedText, setDisplayedText] = useState('');
   const [currentLineIndex, setCurrentLineIndex] = useState(0);
-  const [yearsCount, setYearsCount] = useState(0);
-  const [membersCount, setMembersCount] = useState(0);
+  const [yearsCount, setYearsCount] = useState<number | null>(null);
+  const [membersCount, setMembersCount] = useState<number | null>(null);
   const [mounted, setMounted] = useState(false);
   const [typingComplete, setTypingComplete] = useState(false);
 
@@ -128,9 +128,13 @@ const Hero = () => {
   const membersIntervalRef = useRef<number | null>(null);
 
   useEffect(() => {
+    // 통계 그리드 표시 시간(5s)과 동시에 카운트업 시작
     yearsTimeoutRef.current = window.setTimeout(() => {
+      // Start from 1, not 0
+      setYearsCount(1);
       yearsIntervalRef.current = window.setInterval(() => {
         setYearsCount(prev => {
+          if (prev === null) return 1;
           if (prev < 41) return prev + 1;
           if (yearsIntervalRef.current) {
             clearInterval(yearsIntervalRef.current);
@@ -139,11 +143,14 @@ const Hero = () => {
           return 41;
         });
       }, 50);
-    }, 2000);
+    }, 5000);
 
     membersTimeoutRef.current = window.setTimeout(() => {
+      // Start from 2, not 0
+      setMembersCount(2);
       membersIntervalRef.current = window.setInterval(() => {
         setMembersCount(prev => {
+          if (prev === null) return 2;
           if (prev < 70) return prev + 2;
           if (membersIntervalRef.current) {
             clearInterval(membersIntervalRef.current);
@@ -152,7 +159,7 @@ const Hero = () => {
           return 70;
         });
       }, 30);
-    }, 2500);
+    }, 5000);
 
     return () => {
       // Clear timeouts
@@ -413,7 +420,7 @@ const Hero = () => {
             className="cursor-pointer"
           >
             <div className="text-4xl font-bold text-jaram-400 mb-2">
-              {yearsCount > 0 ? yearsCount : '41'}
+              {yearsCount !== null ? yearsCount : <span className="opacity-0">41</span>}
             </div>
             <div className="text-gray-300">년의 역사</div>
           </motion.div>
@@ -423,7 +430,7 @@ const Hero = () => {
             className="cursor-pointer"
           >
             <div className="text-4xl font-bold text-jaram-400 mb-2">
-              {membersCount > 0 ? `${membersCount}+` : '70+'}
+              {membersCount !== null ? `${membersCount}+` : <span className="opacity-0">70+</span>}
             </div>
             <div className="text-gray-300">명의 활성 멤버</div>
           </motion.div>
