@@ -9,6 +9,7 @@ import IconContainer from '@/components/common/IconContainer';
 import SocialLink from '@/components/common/SocialLink';
 import siteConfig from '@/data/siteConfig.json';
 import { SOCIAL_LINKS } from '@/constants';
+import { ICONS } from '@/constants/icons';
 
 export default function JoinPage() {
   const [openFAQ, setOpenFAQ] = useState<number | null>(null);
@@ -16,6 +17,18 @@ export default function JoinPage() {
   const toggleFAQ = (index: number) => {
     setOpenFAQ(openFAQ === index ? null : index);
   };
+
+  // Format deadline from ISO date to "MM/DD까지 제출"
+  const formatDeadline = (isoDate: string): string => {
+    const date = new Date(isoDate);
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${month}/${day}까지 제출`;
+  };
+
+  const deadline = siteConfig.recruitment?.deadline
+    ? formatDeadline(siteConfig.recruitment.deadline)
+    : 'TBD';
 
   const faqs = [
     {
@@ -48,32 +61,20 @@ export default function JoinPage() {
     {
       step: 1,
       title: "지원서 작성",
-      description: "09/17까지 제출",
-      icon: (
-        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-        </svg>
-      )
+      description: deadline,
+      icon: ICONS.document
     },
     {
       step: 2,
       title: "학회비 납부",
       description: "지원서 폼 내에 자세한 안내 포함",
-      icon: (
-        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-      )
+      icon: ICONS.money
     },
     {
       step: 3,
       title: "학회 활동 시작",
       description: "JARAM의 새로운 멤버로 활동 시작",
-      icon: (
-        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-        </svg>
-      )
+      icon: ICONS.checkmark
     }
   ];
 
