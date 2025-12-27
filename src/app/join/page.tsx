@@ -20,10 +20,23 @@ export default function JoinPage() {
 
   // Format deadline from ISO date to "MM/DD까지 제출"
   const formatDeadline = (isoDate: string): string => {
-    const date = new Date(isoDate);
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    return `${month}/${day}까지 제출`;
+    try {
+      const date = new Date(isoDate);
+
+      // Validate date using getTime() (returns NaN for invalid dates)
+      if (isNaN(date.getTime())) {
+        console.error(`Invalid date format: ${isoDate}`);
+        return 'TBD';
+      }
+
+      // Use UTC methods for timezone-consistent output
+      const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+      const day = String(date.getUTCDate()).padStart(2, '0');
+      return `${month}/${day}까지 제출`;
+    } catch (error) {
+      console.error(`Error parsing date: ${isoDate}`, error);
+      return 'TBD';
+    }
   };
 
   const deadline = siteConfig.recruitment?.deadline
