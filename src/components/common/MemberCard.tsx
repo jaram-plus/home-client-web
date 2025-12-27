@@ -2,25 +2,7 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
-
-interface MemberCardProps {
-  member: {
-    id: number;
-    name: string;
-    generation: number;
-    status: string;
-    imageUrl: string;
-    introduction: string;
-    tags: string[];
-    links: {
-      github?: string;
-      blog?: string;
-      linkedin?: string;
-      instagram?: string;
-    };
-  };
-  showAllTags?: boolean;
-}
+import { MemberCardProps } from '@/types/member';
 
 const MemberCard = ({ member, showAllTags = false }: MemberCardProps) => {
   const [imageError, setImageError] = useState(false);
