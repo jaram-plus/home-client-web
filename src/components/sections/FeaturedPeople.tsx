@@ -53,12 +53,7 @@ const FeaturedPeople = () => {
           </p>
           <Link
             href="/people"
-            className="inline-flex items-center px-8 py-4 text-white font-semibold rounded-lg transition-colors duration-300 shadow-lg hover:shadow-xl"
-            style={{
-              backgroundColor: '#e50113',
-            }}
-            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#c0392b')}
-            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#e50113')}
+            className="inline-flex items-center px-8 py-4 text-white font-semibold rounded-lg transition-colors duration-300 shadow-lg hover:shadow-xl bg-jaram-400 hover:bg-jaram-500"
           >
             전체 멤버 보기
             <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
