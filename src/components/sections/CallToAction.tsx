@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import Button from '@/components/common/Button';
+import { CONTACT_DISPLAY } from '@/constants/contacts';
 
 const CallToAction = () => {
   return (
@@ -69,12 +70,16 @@ const CallToAction = () => {
               궁금한 점이 있으시다면 언제든 연락주세요
             </p>
             <div className="mt-4 space-y-1">
-              <p className="font-medium" style={{color: 'white'}}>
-                회장: 신동빈 010-2491-8183
-              </p>
-              <p className="font-medium" style={{color: 'white'}}>
-                홍보: 김승민 010-5585-9203
-              </p>
+              {CONTACT_DISPLAY.president && (
+                <p className="font-medium" style={{color: 'white'}}>
+                  회장: {CONTACT_DISPLAY.president}
+                </p>
+              )}
+              {CONTACT_DISPLAY.promotion && (
+                <p className="font-medium" style={{color: 'white'}}>
+                  홍보: {CONTACT_DISPLAY.promotion}
+                </p>
+              )}
             </div>
           </div>
         </div>
