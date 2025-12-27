@@ -11,6 +11,38 @@ const Hero = () => {
   const [membersCount, setMembersCount] = useState(0);
   const [mounted, setMounted] = useState(false);
   const [typingComplete, setTypingComplete] = useState(false);
+
+  // Precomputed random values for geometric shapes (hydration-safe)
+  const [shapes, setShapes] = useState<Array<{
+    id: string;
+    shape: string;
+    size: string;
+    left: number;
+    top: number;
+    delay: number;
+    xMove: number;
+    yMove: number;
+    duration: number;
+  }>>([]);
+
+  // Precomputed random values for circuits (hydration-safe)
+  const [circuits, setCircuits] = useState<Array<{
+    id: string;
+    left: number;
+    top: number;
+    width: number;
+    duration: number;
+    delay: number;
+  }>>([]);
+
+  // Precomputed random values for pulse effects (hydration-safe)
+  const [pulses, setPulses] = useState<Array<{
+    id: string;
+    left: number;
+    top: number;
+    duration: number;
+    delay: number;
+  }>>([]);
   
   const lines = [
     '받은 만큼 나누고',
@@ -21,6 +53,45 @@ const Hero = () => {
   // 클라이언트 마운트 체크
   useEffect(() => {
     setMounted(true);
+
+    // Generate random values only on client (prevents hydration mismatch)
+    const shapeTypes = ['□', '○', '△', '◇', '◯', '▢'];
+    const sizeTypes = ['text-xs', 'text-sm', 'text-base'];
+
+    setShapes(
+      Array.from({ length: 15 }, (_, i) => ({
+        id: `shape-${i}`,
+        shape: shapeTypes[Math.floor(Math.random() * shapeTypes.length)],
+        size: sizeTypes[Math.floor(Math.random() * sizeTypes.length)],
+        left: Math.random() * 100,
+        top: Math.random() * 100,
+        delay: Math.random() * 3,
+        xMove: (Math.random() - 0.5) * 200,
+        yMove: (Math.random() - 0.5) * 200,
+        duration: 8 + Math.random() * 6,
+      }))
+    );
+
+    setCircuits(
+      Array.from({ length: 8 }, (_, i) => ({
+        id: `circuit-${i}`,
+        left: Math.random() * 90,
+        top: Math.random() * 90,
+        width: 50 + Math.random() * 100,
+        duration: 4 + Math.random() * 4,
+        delay: Math.random() * 2,
+      }))
+    );
+
+    setPulses(
+      Array.from({ length: 6 }, (_, i) => ({
+        id: `pulse-${i}`,
+        left: 20 + Math.random() * 60,
+        top: 20 + Math.random() * 60,
+        duration: 3 + Math.random() * 2,
+        delay: Math.random() * 3,
+      }))
+    );
   }, []);
 
   // 타이핑 애니메이션
@@ -133,58 +204,51 @@ const Hero = () => {
       {mounted && typingComplete && (
         <>
           {/* 떠다니는 기하학적 도형들 */}
-          {[...Array(15)].map((_, i) => {
-            const shapes = ['□', '○', '△', '◇', '◯', '▢'];
-            const randomShape = shapes[Math.floor(Math.random() * shapes.length)];
-            const randomSize = ['text-xs', 'text-sm', 'text-base'][Math.floor(Math.random() * 3)];
-            const randomDelay = Math.random() * 3;
-            
-            return (
-              <motion.div
-                key={`shape-${i}`}
-                className={`absolute text-white/20 ${randomSize} pointer-events-none select-none`}
-                style={{
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`,
-                  filter: 'blur(0.5px)',
-                }}
-                initial={{ 
-                  opacity: 0,
-                  scale: 0,
-                  rotate: 0
-                }}
-                animate={{
-                  opacity: [0, 0.6, 0],
-                  scale: [0.5, 1.2, 0.5],
-                  rotate: [0, 360],
-                  x: [0, (Math.random() - 0.5) * 200],
-                  y: [0, (Math.random() - 0.5) * 200],
-                }}
-                transition={{
-                  duration: 8 + Math.random() * 6,
-                  repeat: Infinity,
-                  delay: randomDelay,
-                  ease: "easeInOut"
-                }}
-              >
-                {randomShape}
-              </motion.div>
-            );
-          })}
+          {shapes.map((shape) => (
+            <motion.div
+              key={shape.id}
+              className={`absolute text-white/20 ${shape.size} pointer-events-none select-none`}
+              style={{
+                left: `${shape.left}%`,
+                top: `${shape.top}%`,
+                filter: 'blur(0.5px)',
+              }}
+              initial={{
+                opacity: 0,
+                scale: 0,
+                rotate: 0
+              }}
+              animate={{
+                opacity: [0, 0.6, 0],
+                scale: [0.5, 1.2, 0.5],
+                rotate: [0, 360],
+                x: [0, shape.xMove],
+                y: [0, shape.yMove],
+              }}
+              transition={{
+                duration: shape.duration,
+                repeat: Infinity,
+                delay: shape.delay,
+                ease: "easeInOut"
+              }}
+            >
+              {shape.shape}
+            </motion.div>
+          ))}
 
           {/* 회로선 패턴 */}
-          {[...Array(8)].map((_, i) => (
+          {circuits.map((circuit) => (
             <motion.div
-              key={`circuit-${i}`}
+              key={circuit.id}
               className="absolute pointer-events-none"
               style={{
-                left: `${Math.random() * 90}%`,
-                top: `${Math.random() * 90}%`,
-                width: `${50 + Math.random() * 100}px`,
+                left: `${circuit.left}%`,
+                top: `${circuit.top}%`,
+                width: `${circuit.width}px`,
                 height: '2px',
                 background: 'linear-gradient(90deg, transparent, rgba(229, 1, 19, 0.3), transparent)',
               }}
-              initial={{ 
+              initial={{
                 opacity: 0,
                 scaleX: 0
               }}
@@ -193,28 +257,28 @@ const Hero = () => {
                 scaleX: [0, 1, 0],
               }}
               transition={{
-                duration: 4 + Math.random() * 4,
+                duration: circuit.duration,
                 repeat: Infinity,
-                delay: Math.random() * 2,
+                delay: circuit.delay,
                 ease: "easeInOut"
               }}
             />
           ))}
 
           {/* 펄스 원형 효과 */}
-          {[...Array(6)].map((_, i) => (
+          {pulses.map((pulse) => (
             <motion.div
-              key={`pulse-${i}`}
+              key={pulse.id}
               className="absolute pointer-events-none"
               style={{
-                left: `${20 + Math.random() * 60}%`,
-                top: `${20 + Math.random() * 60}%`,
+                left: `${pulse.left}%`,
+                top: `${pulse.top}%`,
                 width: '4px',
                 height: '4px',
                 borderRadius: '50%',
                 background: 'rgba(229, 1, 19, 0.5)',
               }}
-              initial={{ 
+              initial={{
                 scale: 0,
                 opacity: 0
               }}
@@ -223,9 +287,9 @@ const Hero = () => {
                 opacity: [0, 0.6, 0],
               }}
               transition={{
-                duration: 3 + Math.random() * 2,
+                duration: pulse.duration,
                 repeat: Infinity,
-                delay: Math.random() * 3,
+                delay: pulse.delay,
                 ease: "easeOut"
               }}
             />
