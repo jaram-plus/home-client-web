@@ -25,23 +25,23 @@ const CallToAction = () => {
           
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-12 max-w-4xl mx-auto">
             <div className="text-center">
-              <div className="text-4xl mb-4">🚀</div>
+              <div className="text-4xl mb-4" role="img" aria-label="로켓: 빠른 성장">🚀</div>
               <h3 className="text-lg font-semibold mb-2" style={{color: 'white'}}>빠른 성장</h3>
               <p className="text-sm" style={{color: 'rgba(255, 255, 255, 0.8)'}}>
                 체계적인 멘토링과<br />실전 프로젝트
               </p>
             </div>
-            
+
             <div className="text-center">
-              <div className="text-4xl mb-4">👥</div>
+              <div className="text-4xl mb-4" role="img" aria-label="사람들: 끈끈한 네트워크">👥</div>
               <h3 className="text-lg font-semibold mb-2" style={{color: 'white'}}>끈끈한 네트워크</h3>
               <p className="text-sm" style={{color: 'rgba(255, 255, 255, 0.8)'}}>
                 평생 함께할<br />개발자 동료들
               </p>
             </div>
-            
+
             <div className="text-center">
-              <div className="text-4xl mb-4">💼</div>
+              <div className="text-4xl mb-4" role="img" aria-label="가방: 취업 지원">💼</div>
               <h3 className="text-lg font-semibold mb-2" style={{color: 'white'}}>취업 지원</h3>
               <p className="text-sm" style={{color: 'rgba(255, 255, 255, 0.8)'}}>
                 선배들의 노하우와<br />실무 경험 공유
