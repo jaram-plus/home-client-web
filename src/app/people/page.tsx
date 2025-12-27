@@ -144,7 +144,7 @@ export default function PeoplePage() {
               <div className="flex flex-col items-end gap-2">
                 <p className="text-sm text-gray-600">자람의 역사에 함께하세요</p>
                 <Button
-                  onClick={() => window.open('https://www.jaram.net/', '_blank')}
+                  onClick={() => window.open(process.env.NEXT_PUBLIC_MEMBER_REGISTRATION_URL || 'https://www.jaram.net/', '_blank')}
                   size="md"
                 >
                   동문 등록하기
