@@ -12,15 +12,18 @@ export default function PeoplePage() {
   const [selectedStatus, setSelectedStatus] = useState('전체');
   const [selectedTech, setSelectedTech] = useState<string[]>([]);
 
+  // 상태 그룹 정의 (중복 제거를 위한 상수)
+  const STATUS_GROUPS: Record<string, string[]> = {
+    '임원진': ['임원진', '부원'],
+    '회원': ['잘 모르겠어요', '수습회원', '준회원', '정회원', '준OB', '휴학회원'],
+    '졸업생': ['OB']
+  };
+
+  type StatusGroupKey = keyof typeof STATUS_GROUPS;
+
   // 상태 매칭 로직
   const getStatusGroup = (status: string): string => {
-    const statusGroups = {
-      '임원진': ['임원진', '부원'],
-      '회원': ['잘 모르겠어요', '수습회원', '준회원', '정회원', '준OB', '휴학회원'],
-      '졸업생': ['OB']
-    };
-
-    for (const [group, statuses] of Object.entries(statusGroups)) {
+    for (const [group, statuses] of Object.entries(STATUS_GROUPS)) {
       if (statuses.includes(status)) {
         return group;
       }
@@ -36,13 +39,7 @@ export default function PeoplePage() {
       statusMatch = true;
     } else {
       // 선택된 필터 그룹에 해당하는 상태들과 매칭
-      const statusGroups = {
-        '임원진': ['임원진', '부원'],
-        '회원': ['잘 모르겠어요', '수습회원', '준회원', '정회원', '준OB', '휴학회원'],
-        '졸업생': ['OB']
-      };
-      
-      const targetStatuses = statusGroups[selectedStatus as keyof typeof statusGroups];
+      const targetStatuses = STATUS_GROUPS[selectedStatus as StatusGroupKey];
       statusMatch = targetStatuses ? targetStatuses.includes(person.status) : person.status === selectedStatus;
     }
     
