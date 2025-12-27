@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 const Hero = () => {
   const [displayedText, setDisplayedText] = useState('');
@@ -51,30 +51,58 @@ const Hero = () => {
   }, [currentLineIndex]);
 
   // 숫자 카운트업 애니메이션
+  const yearsTimeoutRef = useRef<number | null>(null);
+  const yearsIntervalRef = useRef<number | null>(null);
+  const membersTimeoutRef = useRef<number | null>(null);
+  const membersIntervalRef = useRef<number | null>(null);
+
   useEffect(() => {
-    const timer1 = setTimeout(() => {
-      const yearsTimer = setInterval(() => {
+    yearsTimeoutRef.current = window.setTimeout(() => {
+      yearsIntervalRef.current = window.setInterval(() => {
         setYearsCount(prev => {
           if (prev < 41) return prev + 1;
-          clearInterval(yearsTimer);
+          if (yearsIntervalRef.current) {
+            clearInterval(yearsIntervalRef.current);
+            yearsIntervalRef.current = null;
+          }
           return 41;
         });
       }, 50);
     }, 2000);
 
-    const timer2 = setTimeout(() => {
-      const membersTimer = setInterval(() => {
+    membersTimeoutRef.current = window.setTimeout(() => {
+      membersIntervalRef.current = window.setInterval(() => {
         setMembersCount(prev => {
           if (prev < 70) return prev + 2;
-          clearInterval(membersTimer);
+          if (membersIntervalRef.current) {
+            clearInterval(membersIntervalRef.current);
+            membersIntervalRef.current = null;
+          }
           return 70;
         });
       }, 30);
     }, 2500);
 
     return () => {
-      clearTimeout(timer1);
-      clearTimeout(timer2);
+      // Clear timeouts
+      if (yearsTimeoutRef.current) {
+        clearTimeout(yearsTimeoutRef.current);
+        yearsTimeoutRef.current = null;
+      }
+      if (membersTimeoutRef.current) {
+        clearTimeout(membersTimeoutRef.current);
+        membersTimeoutRef.current = null;
+      }
+
+      // Clear intervals
+      if (yearsIntervalRef.current) {
+        clearInterval(yearsIntervalRef.current);
+        yearsIntervalRef.current = null;
+      }
+      if (membersIntervalRef.current) {
+        clearInterval(membersIntervalRef.current);
+        membersIntervalRef.current = null;
+      }
     };
   }, []);
 
