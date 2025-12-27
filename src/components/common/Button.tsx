@@ -15,7 +15,17 @@ const Button = ({
   href,
   onClick,
   disabled = false,
+  target,
+  rel,
 }: ButtonProps) => {
+  // Helper function to detect external URLs
+  const isExternalUrl = (url: string): boolean => {
+    return url.startsWith('http://') || url.startsWith('https://');
+  };
+
+  // Determine target and rel for external links
+  const linkTarget = target || (href && isExternalUrl(href) ? '_blank' : undefined);
+  const linkRel = rel || (linkTarget === '_blank' ? 'noopener noreferrer' : undefined);
   // Base classes
   const baseClasses = 'inline-flex items-center justify-center font-semibold rounded-lg transition-all duration-300';
 
@@ -45,7 +55,12 @@ const Button = ({
 
   if (href && !disabled) {
     return (
-      <Link href={href} className={combinedClasses}>
+      <Link
+        href={href}
+        target={linkTarget}
+        rel={linkRel}
+        className={combinedClasses}
+      >
         {children}
       </Link>
     );

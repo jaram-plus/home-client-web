@@ -14,6 +14,8 @@ export interface ButtonProps {
   href?: string;
   onClick?: () => void;
   disabled?: boolean;
+  target?: string;
+  rel?: string;
 }
 
 export interface PageHeroProps {
