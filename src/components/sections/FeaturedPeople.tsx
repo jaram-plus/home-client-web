@@ -6,15 +6,25 @@ import peopleData from '@/data/peopleData.json';
 import MemberCard from '@/components/common/MemberCard';
 
 const FeaturedPeople = () => {
-  const [featuredMembers, setFeaturedMembers] = useState(peopleData.slice(0, 4));
+  const [featuredMembers, setFeaturedMembers] = useState<typeof peopleData>([]);
+
+  // Fisher-Yates shuffle algorithm (proper unbiased shuffle)
+  const fisherYatesShuffle = <T,>(array: T[]): T[] => {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  };
 
   // 랜덤으로 4명 선택하는 함수
   const getRandomMembers = (members: typeof peopleData, count: number) => {
-    const shuffled = [...members].sort(() => 0.5 - Math.random());
+    const shuffled = fisherYatesShuffle(members);
     return shuffled.slice(0, count);
   };
 
-  // 클라이언트에서만 랜덤 멤버 선택
+  // 클라이언트에서만 랜덤 멤버 선택 (hydration mismatch 방지)
   useEffect(() => {
     setFeaturedMembers(getRandomMembers(peopleData, 4));
   }, []);
