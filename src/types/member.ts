@@ -7,7 +7,7 @@ export interface Member {
   name: string;
   generation: number;
   status: string;
-  imageUrl: string;
+  imageUrl: string | undefined;
   introduction: string;
   tags: string[];
   links: MemberLinks;

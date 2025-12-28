@@ -6,6 +6,22 @@ import { Member, MemberLinks } from '@/types/member';
 import { ApiMember } from '@/services/api';
 
 /**
+ * Check if a string is a valid URL
+ */
+function isValidUrl(string: string | null): string | undefined {
+  if (!string || string === 'null' || string === 'undefined' || string.trim() === '') {
+    return undefined;
+  }
+
+  try {
+    new URL(string);
+    return string;
+  } catch (_) {
+    return undefined;
+  }
+}
+
+/**
  * Transform API member data to frontend Member format
  */
 export function transformApiMemberToMember(apiMember: ApiMember): Member {
@@ -45,7 +61,7 @@ export function transformApiMemberToMember(apiMember: ApiMember): Member {
     name: apiMember.name,
     generation: apiMember.generation,
     status: apiMember.rank, // Map 'rank' to 'status'
-    imageUrl: apiMember.image_url || '', // Use empty string if null
+    imageUrl: isValidUrl(apiMember.image_url), // Validate URL
     introduction: apiMember.description || '', // Map 'description' to 'introduction'
     tags,
     links,
