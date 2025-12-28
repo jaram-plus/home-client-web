@@ -140,13 +140,28 @@ export default function PeoplePage() {
             <h2 className="text-2xl font-bold text-gray-900">
               총 {filteredPeople.length}명의 멤버
             </h2>
-            <div className="text-sm text-gray-600">
-              {selectedStatus !== '전체' && (
-                <span className="mr-4">소속: {selectedStatus}</span>
-              )}
-              {selectedTech.length > 0 && (
-                <span>기술: {selectedTech.join(', ')}</span>
-              )}
+            <div className="flex items-center gap-6">
+              <div className="flex flex-col items-end gap-2">
+                <p className="text-sm text-gray-600">자람의 역사에 함께하세요</p>
+                <Button
+                  href={process.env.NEXT_PUBLIC_MEMBER_REGISTRATION_URL || 'https://www.jaram.net/'}
+                  size="md"
+                >
+                  동문 등록하기
+                  <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                  <span className="sr-only">(새 창에서 열림)</span>
+                </Button>
+              </div>
+              <div className="text-sm text-gray-600">
+                {selectedStatus !== '전체' && (
+                  <span className="mr-4">소속: {selectedStatus}</span>
+                )}
+                {selectedTech.length > 0 && (
+                  <span>기술: {selectedTech.join(', ')}</span>
+                )}
+              </div>
             </div>
           </div>
 
