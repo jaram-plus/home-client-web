@@ -1,16 +1,40 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Layout from '@/components/layout/Layout';
 import PageHero from '@/components/common/PageHero';
 import Button from '@/components/common/Button';
 import MemberCard from '@/components/common/MemberCard';
-import peopleData from '@/data/peopleData.json';
 import tagsData from '@/data/tags.json';
+import { fetchApprovedMembers } from '@/services/api';
+import { transformApiMembersToMembers } from '@/utils/memberTransformer';
 
 export default function PeoplePage() {
   const [selectedStatus, setSelectedStatus] = useState('전체');
   const [selectedTech, setSelectedTech] = useState<string[]>([]);
+  const [members, setMembers] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  // Fetch members from API on component mount
+  useEffect(() => {
+    async function loadMembers() {
+      try {
+        setIsLoading(true);
+        setError(null);
+        const apiMembers = await fetchApprovedMembers();
+        const transformedMembers = transformApiMembersToMembers(apiMembers);
+        setMembers(transformedMembers);
+      } catch (err) {
+        console.error('Failed to load members:', err);
+        setError('멤버 데이터를 불러오는데 실패했습니다. 잠시 후 다시 시도해주세요.');
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    loadMembers();
+  }, []);
 
   // 상태 그룹 정의 (중복 제거를 위한 상수)
   const STATUS_GROUPS: Record<string, string[]> = {
@@ -32,7 +56,7 @@ export default function PeoplePage() {
   };
 
   // 필터링된 멤버 데이터
-  const filteredPeople = peopleData.filter(person => {
+  const filteredPeople = members.filter(person => {
     let statusMatch = false;
     
     if (selectedStatus === '전체') {
@@ -138,7 +162,7 @@ export default function PeoplePage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center mb-8">
             <h2 className="text-2xl font-bold text-gray-900">
-              총 {filteredPeople.length}명의 멤버
+              총 {isLoading ? '...' : filteredPeople.length}명의 멤버
             </h2>
             <div className="flex items-center gap-6">
               <div className="flex flex-col items-end gap-2">
@@ -165,7 +189,36 @@ export default function PeoplePage() {
             </div>
           </div>
 
-          {filteredPeople.length === 0 ? (
+          {isLoading ? (
+            <div className="text-center py-16">
+              <div className="text-gray-400 mb-4">
+                <svg className="w-16 h-16 mx-auto animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg>
+              </div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                멤버 데이터를 불러오는 중...
+              </h3>
+            </div>
+          ) : error ? (
+            <div className="text-center py-16">
+              <div className="text-red-400 mb-4">
+                <svg className="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                오류가 발생했습니다
+              </h3>
+              <p className="text-gray-600 mb-4">{error}</p>
+              <Button
+                onClick={() => window.location.reload()}
+                size="sm"
+              >
+                다시 시도
+              </Button>
+            </div>
+          ) : filteredPeople.length === 0 ? (
             <div className="text-center py-16">
               <div className="text-gray-400 mb-4">
                 <svg className="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
