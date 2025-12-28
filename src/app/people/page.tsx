@@ -144,13 +144,14 @@ export default function PeoplePage() {
               <div className="flex flex-col items-end gap-2">
                 <p className="text-sm text-gray-600">자람의 역사에 함께하세요</p>
                 <Button
-                  onClick={() => window.open(process.env.NEXT_PUBLIC_MEMBER_REGISTRATION_URL || 'https://www.jaram.net/', '_blank')}
+                  href={process.env.NEXT_PUBLIC_MEMBER_REGISTRATION_URL || 'https://www.jaram.net/'}
                   size="md"
                 >
                   동문 등록하기
                   <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                   </svg>
+                  <span className="sr-only">(새 창에서 열림)</span>
                 </Button>
               </div>
               <div className="text-sm text-gray-600">
