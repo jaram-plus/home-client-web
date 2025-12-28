@@ -167,9 +167,9 @@ export default function PeoplePage() {
             </h2>
             <div className="flex items-center gap-6">
               <div className="flex flex-col items-end gap-2">
-                <p className="text-sm text-gray-600">자람의 역사에 함께하세요</p>
+                <p className="text-sm text-gray-600">회원 또는 졸업생이신가요?</p>
                 <Button
-                  href={process.env.NEXT_PUBLIC_MEMBER_REGISTRATION_URL || 'https://www.jaram.net/'}
+                  href={process.env.NEXT_PUBLIC_MEMBER_REGISTRATION_URL || 'https://user.jaram.net/'}
                   size="md"
                 >
                   동문 등록하기
