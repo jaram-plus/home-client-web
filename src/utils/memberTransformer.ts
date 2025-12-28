@@ -6,6 +6,26 @@ import { Member, MemberLinks } from '@/types/member';
 import { ApiMember } from '@/services/api';
 
 /**
+ * Normalize URL by adding https:// prefix if missing
+ */
+function normalizeUrl(url: string): string {
+  if (!url) return url;
+
+  // If URL already starts with http:// or https://, return as is
+  if (url.startsWith('http://') || url.startsWith('https://')) {
+    return url;
+  }
+
+  // If URL starts with //, return as is (protocol-relative URL)
+  if (url.startsWith('//')) {
+    return url;
+  }
+
+  // Otherwise, add https:// prefix
+  return `https://${url}`;
+}
+
+/**
  * Check if a string is a valid URL
  */
 function isValidUrl(string: string | null): string | undefined {
@@ -28,24 +48,26 @@ export function transformApiMemberToMember(apiMember: ApiMember): Member {
   // Transform links array to MemberLinks object
   const links: MemberLinks = {};
   apiMember.links.forEach((link) => {
+    const normalizedUrl = normalizeUrl(link.url);
+
     switch (link.link_type) {
       case 'github':
-        links.github = link.url;
+        links.github = normalizedUrl;
         break;
       case 'blog':
-        links.blog = link.url;
+        links.blog = normalizedUrl;
         break;
       case 'linkedin':
-        links.linkedin = link.url;
+        links.linkedin = normalizedUrl;
         break;
       case 'instagram':
-        links.instagram = link.url;
+        links.instagram = normalizedUrl;
         break;
       case 'notion':
-        links.notion = link.url;
+        links.notion = normalizedUrl;
         break;
       case 'solved.ac':
-        links.solvedAc = link.url;
+        links.solvedAc = normalizedUrl;
         break;
       default:
         // Handle unknown link types or add to a generic field if needed
