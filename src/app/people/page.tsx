@@ -8,11 +8,12 @@ import MemberCard from '@/components/common/MemberCard';
 import tagsData from '@/data/tags.json';
 import { fetchApprovedMembers } from '@/services/api';
 import { transformApiMembersToMembers } from '@/utils/memberTransformer';
+import { Member } from '@/types/member';
 
 export default function PeoplePage() {
   const [selectedStatus, setSelectedStatus] = useState('전체');
   const [selectedTech, setSelectedTech] = useState<string[]>([]);
-  const [members, setMembers] = useState<any[]>([]);
+  const [members, setMembers] = useState<Member[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
