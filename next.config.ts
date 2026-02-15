@@ -1,6 +1,14 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  async rewrites() {
+    return [
+      {
+        source: '/api/members/:path*',
+        destination: 'http://localhost:8000/members/:path*',
+      },
+    ];
+  },
   images: {
     remotePatterns: [
       {

@@ -26,12 +26,20 @@ export interface ApiMember {
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8000';
 
+// Use Next.js proxy for local development to avoid CORS issues
+const getApiUrl = (path: string) => {
+  if (typeof window !== 'undefined' && API_BASE_URL.includes('localhost:8000')) {
+    return `/api${path}`;
+  }
+  return `${API_BASE_URL}${path}`;
+};
+
 /**
  * Fetch all approved members from the backend API
  */
 export async function fetchApprovedMembers(): Promise<ApiMember[]> {
   try {
-    const response = await fetch(`${API_BASE_URL}/members?status=APPROVED`, {
+    const response = await fetch(getApiUrl('/members?status=APPROVED'), {
       headers: {
         'Accept': 'application/json',
       },
