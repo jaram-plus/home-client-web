@@ -40,6 +40,12 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: process.env.NEXT_PUBLIC_MINIO_PROTOCOL || 'http',
+        hostname: process.env.NEXT_PUBLIC_MINIO_HOSTNAME || 'localhost',
+        port: process.env.NEXT_PUBLIC_MINIO_PORT || '9000',
+        pathname: `/${process.env.NEXT_PUBLIC_MINIO_BUCKET || 'jaram-profiles'}/**`,
+      },
     ],
   },
 };
