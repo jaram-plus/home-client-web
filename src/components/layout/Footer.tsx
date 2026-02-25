@@ -4,6 +4,7 @@ import siteConfig from '@/data/siteConfig.json';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const yearsOfHistory = currentYear - siteConfig.foundedYear;
 
   return (
     <footer className="bg-gray-50 border-t border-gray-200">
@@ -15,7 +16,7 @@ const Footer = () => {
               <div className="text-2xl font-bold text-jaram-500">JARAM</div>
             </div>
             <p className="text-gray-600 mb-4 max-w-md">
-              41년의 깊이, 함께 성장하는 사람들의 커뮤니티.<br />
+              {yearsOfHistory}년의 깊이, 함께 성장하는 사람들의 커뮤니티.<br />
               한양대학교 컴퓨터학회 자람에서 함께하세요.
             </p>
             <div className="flex space-x-4">

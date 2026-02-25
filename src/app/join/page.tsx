@@ -12,31 +12,17 @@ import { SOCIAL_LINKS } from '@/constants';
 import { ICONS } from '@/constants/icons';
 
 export default function JoinPage() {
+  const currentYear = new Date().getFullYear();
+  const yearsOfHistory = currentYear - siteConfig.foundedYear;
   const [openFAQ, setOpenFAQ] = useState<number | null>(null);
 
   const toggleFAQ = (index: number) => {
     setOpenFAQ(openFAQ === index ? null : index);
   };
 
-  // Format deadline from ISO date to "MM/DD까지 제출"
+  // Format deadline from ISO date
   const formatDeadline = (isoDate: string): string => {
-    try {
-      const date = new Date(isoDate);
-
-      // Validate date using getTime() (returns NaN for invalid dates)
-      if (isNaN(date.getTime())) {
-        console.error(`Invalid date format: ${isoDate}`);
-        return 'TBD';
-      }
-
-      // Use UTC methods for timezone-consistent output
-      const month = String(date.getUTCMonth() + 1).padStart(2, '0');
-      const day = String(date.getUTCDate()).padStart(2, '0');
-      return `${month}/${day}까지 제출`;
-    } catch (error) {
-      console.error(`Error parsing date: ${isoDate}`, error);
-      return 'TBD';
-    }
+    return "지원 일정은 회장에게 문의";
   };
 
   const deadline = siteConfig.recruitment?.deadline
@@ -66,7 +52,7 @@ export default function JoinPage() {
     },
     {
       question: "졸업 후에도 연결이 유지되나요?",
-      answer: "네! JARAM은 41년 역사의 강력한 동문 네트워크를 가지고 있습니다. 졸업 후에도 선후배 간의 지속적인 교류와 커리어 도움을 받을 수 있습니다."
+      answer: `네! JARAM은 ${yearsOfHistory}년 역사의 강력한 동문 네트워크를 가지고 있습니다. 졸업 후에도 선후배 간의 지속적인 교류와 커리어 도움을 받을 수 있습니다.`
     }
   ];
 
@@ -97,7 +83,7 @@ export default function JoinPage() {
       <PageHero
         title="JARAM"
         highlight="지원하기"
-        description="41년 역사의 JARAM과 함께 성장할 준비가 되셨나요?"
+        description={`${yearsOfHistory}년 역사의 JARAM과 함께 성장할 준비가 되셨나요?`}
       />
 
       {/* Recruitment Process */}

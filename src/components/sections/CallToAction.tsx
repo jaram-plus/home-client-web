@@ -3,8 +3,12 @@
 import Link from 'next/link';
 import Button from '@/components/common/Button';
 import { CONTACT_DISPLAY } from '@/constants/contacts';
+import siteConfig from '@/data/siteConfig.json';
 
 const CallToAction = () => {
+  const currentYear = new Date().getFullYear();
+  const yearsOfHistory = currentYear - siteConfig.foundedYear;
+  const currentGeneration = yearsOfHistory;
   return (
     <section
       className="py-20 bg-gradient-to-r from-jaram-400 to-[#c0392b]"
@@ -19,7 +23,7 @@ const CallToAction = () => {
           </h2>
           
           <p className="text-xl sm:text-2xl mb-8 max-w-3xl mx-auto leading-relaxed" style={{color: 'rgba(255, 255, 255, 0.9)'}}>
-            41년의 역사와 함께하는 JARAM에서<br />
+            {yearsOfHistory}년의 역사와 함께하는 JARAM에서<br />
             여러분의 꿈을 현실로 만들어보세요
           </p>
           
@@ -54,7 +58,7 @@ const CallToAction = () => {
               href="/join"
               className="px-8 py-4 rounded-lg text-lg font-bold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl bg-white text-jaram-400 hover:bg-gray-50"
             >
-              41기 지원하기
+              {currentGeneration}기 지원하기
             </Link>
 
             <Link

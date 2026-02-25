@@ -3,8 +3,11 @@
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useEffect, useState, useRef } from 'react';
+import siteConfig from '@/data/siteConfig.json';
 
 const Hero = () => {
+  const currentYear = new Date().getFullYear();
+  const yearsOfHistory = currentYear - siteConfig.foundedYear;
   const [displayedText, setDisplayedText] = useState('');
   const [currentLineIndex, setCurrentLineIndex] = useState(0);
   const [yearsCount, setYearsCount] = useState<number | null>(null);
@@ -135,12 +138,12 @@ const Hero = () => {
       yearsIntervalRef.current = window.setInterval(() => {
         setYearsCount(prev => {
           if (prev === null) return 1;
-          if (prev < 41) return prev + 1;
+          if (prev < yearsOfHistory) return prev + 1;
           if (yearsIntervalRef.current) {
             clearInterval(yearsIntervalRef.current);
             yearsIntervalRef.current = null;
           }
-          return 41;
+          return yearsOfHistory;
         });
       }, 50);
     }, 5000);
@@ -420,7 +423,7 @@ const Hero = () => {
             className="cursor-pointer"
           >
             <div className="text-4xl font-bold text-jaram-400 mb-2">
-              {yearsCount !== null ? yearsCount : <span className="opacity-0">41</span>}
+              {yearsCount !== null ? yearsCount : <span className="opacity-0">{yearsOfHistory}</span>}
             </div>
             <div className="text-gray-300">년의 역사</div>
           </motion.div>

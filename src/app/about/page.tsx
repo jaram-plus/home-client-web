@@ -4,15 +4,18 @@ import Layout from '@/components/layout/Layout';
 import PageHero from '@/components/common/PageHero';
 import IconContainer from '@/components/common/IconContainer';
 import Button from '@/components/common/Button';
+import siteConfig from '@/data/siteConfig.json';
 
 export default function AboutPage() {
+  const currentYear = new Date().getFullYear();
+  const yearsOfHistory = currentYear - siteConfig.foundedYear;
   return (
     <Layout>
       {/* Hero Section - Reusable Component */}
       <PageHero
         title="우리의"
         highlight="이야기"
-        description="41년간 이어온 JARAM의 역사와 철학, 그리고 함께 성장하는 문화를 소개합니다"
+        description={`${yearsOfHistory}년간 이어온 JARAM의 역사와 철학, 그리고 함께 성장하는 문화를 소개합니다`}
       />
 
       {/* Our Story & Philosophy */}
@@ -28,10 +31,10 @@ export default function AboutPage() {
 
             <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
               <div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">41년의 깊은 역사</h3>
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">{yearsOfHistory}년의 깊은 역사</h3>
                 <p className="text-gray-600 mb-6 leading-relaxed">
-                  1984년에 설립된 JARAM은 한양대학교 ERICA캠퍼스의 가장 오래된 컴퓨터학회입니다. 
-                  41년간 축적된 지식과 경험을 바탕으로, 수많은 IT 전문가들을 배출해왔습니다.
+                  1984년에 설립된 JARAM은 한양대학교 ERICA캠퍼스의 가장 오래된 컴퓨터학회입니다.
+                  {yearsOfHistory}년간 축적된 지식과 경험을 바탕으로, 수많은 IT 전문가들을 배출해왔습니다.
                 </p>
                 <p className="text-gray-600 leading-relaxed">
                   우리는 단순한 학회가 아닌, 함께 성장하는 커뮤니티입니다. 
@@ -43,7 +46,7 @@ export default function AboutPage() {
                 <div className="bg-gray-100 rounded-2xl p-8 text-center">
                   <div className="text-4xl font-bold mb-2 text-jaram-400">1984</div>
                   <div className="text-gray-600 mb-4">설립년도</div>
-                  <div className="text-4xl font-bold mb-2 text-jaram-400">41</div>
+                  <div className="text-4xl font-bold mb-2 text-jaram-400">{yearsOfHistory}</div>
                   <div className="text-gray-600 mb-4">년의 역사</div>
                   <div className="text-4xl font-bold mb-2 text-jaram-400">500+</div>
                   <div className="text-gray-600">졸업생</div>
@@ -449,7 +452,7 @@ export default function AboutPage() {
             함께 성장할 준비가 되셨나요?
           </h2>
           <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-            41년 역사의 JARAM과 함께 당신의 개발자 여정을 시작하세요
+            {yearsOfHistory}년 역사의 JARAM과 함께 당신의 개발자 여정을 시작하세요
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
